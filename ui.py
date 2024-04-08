@@ -36,9 +36,10 @@ class QuizzInterface:
         self.windows.mainloop()
 
     def get_next_question(self):
+        self.true_button.config(state="normal")
+        self.false_button.config(state="normal")
         self.canvas.config(bg="white")
         if self.quiz.still_has_questions():
-            self.label_score.config(text=f"Score: {self.score}", fg="white", bg=THEME_COLOR)
             q_text = self.quiz.next_question()
             self.canvas.itemconfig(self.question_text,text=q_text)
         else:
@@ -59,4 +60,7 @@ class QuizzInterface:
         else:
             self.canvas.config(bg="red")
 
+        self.label_score.config(text=f"Score: {self.score}", fg="white", bg=THEME_COLOR)
+        self.true_button.config(state="disabled")
+        self.false_button.config(state="disabled")
         self.windows.after(1000,self.get_next_question)
